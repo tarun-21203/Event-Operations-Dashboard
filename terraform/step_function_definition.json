@@ -1,0 +1,67 @@
+{
+    "Comment": "Event Workflow",
+    "StartAt": "SaveEvent",
+    "States": {
+        "SaveEvent": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${save_event_arn}",
+                "Payload.$": "$"
+            },
+            "OutputPath": "$.Payload",
+            "Next": "ProcessEvent"
+        },
+        "ProcessEvent": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${process_event_arn}",
+                "Payload.$": "$"
+            },
+            "OutputPath": "$.Payload",
+            "Next": "CheckPriority"
+        },
+        "CheckPriority": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.priority",
+                    "StringEquals": "P1",
+                    "Next": "NotifyEvent"
+                }
+            ],
+            "Default": "ArchiveEvent"
+        },
+        "NotifyEvent": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${notify_event_arn}",
+                "Payload.$": "$"
+            },
+            "OutputPath": "$.Payload",
+            "Next": "ArchiveEvent"
+        },
+        "ArchiveEvent": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${archive_event_arn}",
+                "Payload.$": "$"
+            },
+            "OutputPath": "$.Payload",
+            "Next": "CompleteEvent"
+        },
+        "CompleteEvent": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${complete_event_arn}",
+                "Payload.$": "$"
+            },
+            "OutputPath": "$.Payload",
+            "End": true
+        }
+    }
+}
