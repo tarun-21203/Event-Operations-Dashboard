@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Event Operations Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1>☁ Event Operations Dashboard</h1>
+
+    <div class="top-section">
+
+        <div class="card trigger-card">
+            <h2>Trigger Event</h2>
+            <select id="preset">
+                <option value="" disabled selected>Select Event Type</option>
+                <option value="payment-initialized">Payment Initialized (P2)</option>
+                <option value="security-suspicious-login">Security Suspicious Login (P1)</option>
+                <option value="system-high-latency">System High Latency (P2)</option>
+                <option value="manual-review-request">Manual Review (P3)</option>
+                <option value="scheduled-inventory-sync">Scheduled Inventory Sync (P4)</option>
+            </select>
+            <button id="triggerBtn">Trigger Event</button>
+        </div>
+
+        <div class="card analytics-card">
+            <h2>Analytics</h2>
+            <div class="stats">
+                <div class="stat-box">
+                    <span>Total</span>
+                    <strong id="totalCount">0</strong>
+                </div>
+                <div class="stat-box p1">
+                    <span>P1</span>
+                    <strong id="p1Count">0</strong>
+                </div>
+                <div class="stat-box p2">
+                    <span>P2</span>
+                    <strong id="p2Count">0</strong>
+                </div>
+                <div class="stat-box p3">
+                    <span>P3</span>
+                    <strong id="p3Count">0</strong>
+                </div>
+                <div class="stat-box p4">
+                    <span>P4</span>
+                    <strong id="p4Count">0</strong>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card events-card">
+        <h2>Recent Events</h2>
+        <div id="eventCards" class="card-grid"></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
