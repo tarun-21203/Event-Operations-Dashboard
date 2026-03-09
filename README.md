@@ -39,7 +39,6 @@ event_system/
     ├── step_function_definition.json # Step Function workflow
     ├── *.zip                        # Lambda deployment packages (required)
     └── terraform.tfstate            # State file (generated)
-```
     ├── outputs.tf          # Output values
     └── step_function_definition.json  # Step Function workflow
 ```
